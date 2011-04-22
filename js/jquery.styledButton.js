@@ -4,7 +4,7 @@
  *
  * See http://swizec.com/code/styledButton/
  */
-
+(function($){  
 $.fn.styledButton = function ( params )
 {
 	return $(this).each( function ()
@@ -741,3 +741,4 @@ $.fn.styledButtonDropDownDeactivate = function ()
 		}
 	}
 }
+})(jQuery);
