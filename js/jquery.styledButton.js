@@ -609,136 +609,121 @@ styledButton.prototype.setupRoleSelect = function ()
 }
 
 //
-// behaviour functions
+// behaviour functions (public methods)
 //
+$.fn.extend({
+	styledButtonSetValue: function ( value ) {
+		var element = $(this);
 
-$.fn.styledButtonSetValue = function ( value )
-{
-	var element = $(this);
-
-	while ( !element.is( ".parent" ) && element.parent().size() > 0 )
-	{
-		element = element.parent();
-	}
-
-	$(element).val( value );
-	if ( !$.browser.msie )
-	{
-		$(element).change();
-	}
-
-	while ( !element.is( "input" ) && element.contents().size() > 0 )
-	{
-		element = element.contents();
-	}
-
-	$(element).val( value )
-}
-
-$.fn.styledButtonHover = function ()
-{
-	$(this).addClass( 'hover' );
-
-	if ( $(this).children().size() > 0 )
-	{
-		$(this).children().styledButtonHover();
-	}
-}
-
-$.fn.styledButtonUnhover = function ()
-{
-	$(this).removeClass( 'hover' );
-	$(this).removeClass( 'down' );
-
-	if ( $(this).contents().size() > 0 )
-	{
-		$(this).contents().styledButtonUnhover();
-	}
-}
-
-$.fn.styledButtonMouseDown = function ()
-{
-	$(this).addClass( 'down' );
-
-	if ( $(this).contents().size() > 0 )
-	{
-		$(this).contents().styledButtonMouseDown();
-	}
-}
-
-$.fn.styledButtonMouseUp = function ()
-{
-	$(this).removeClass( 'down' );
-
-	if ( $(this).contents().size() > 0 )
-	{
-		$(this).contents().styledButtonMouseUp();
-	}
-}
-
-$.fn.styledButtonActivate = function ()
-{
-	$(this).addClass( 'active' );
-
-	if ( $(this).contents().size() > 0 )
-	{
-		$(this).contents().styledButtonActivate();
-	}
-}
-
-$.fn.styledButtonDeactivate = function ()
-{
-	$(this).removeClass( 'active' );
-
-	if ( $(this).contents().size() > 0 )
-	{
-		$(this).contents().styledButtonDeactivate();
-	}
-}
-
-$.fn.styledButtonDropDownActivate = function ()
-{
-	if ( !$(this).is( '.dropdown' ) )
-	{
-		$(this).children().styledButtonDropDownActivate();
-	}else
-	{
-		for ( var i = 0; i < $(this).size(); i += 1 )
+		while ( !element.is( ".parent" ) && element.parent().size() > 0 )
 		{
-			if ( $(this).eq( i ).is( ".dropdown" ) )
+			element = element.parent();
+		}
+
+		$(element).val( value );
+		if ( !$.browser.msie )
+		{
+			$(element).change();
+		}
+
+		while ( !element.is( "input" ) && element.contents().size() > 0 )
+		{
+			element = element.contents();
+		}
+
+		$(element).val( value )
+	},
+	styledButtonHover: function () {
+		$(this).addClass( 'hover' );
+
+		if ( $(this).children().size() > 0 )
+		{
+			$(this).children().styledButtonHover();
+		}
+	},
+
+	styledButtonUnhover: function () {
+		$(this).removeClass( 'hover' );
+		$(this).removeClass( 'down' );
+
+		if ( $(this).contents().size() > 0 )
+		{
+			$(this).contents().styledButtonUnhover();
+		}
+	},
+	styledButtonMouseDown: function () {
+		$(this).addClass( 'down' );
+
+		if ( $(this).contents().size() > 0 )
+		{
+			$(this).contents().styledButtonMouseDown();
+		}
+	},
+	styledButtonMouseUp: function () {
+		$(this).removeClass( 'down' );
+
+		if ( $(this).contents().size() > 0 )
+		{
+			$(this).contents().styledButtonMouseUp();
+		}
+	},
+	styledButtonActivate: function () {
+		$(this).addClass( 'active' );
+
+		if ( $(this).contents().size() > 0 )
+		{
+			$(this).contents().styledButtonActivate();
+		}
+	},
+	styledButtonDeactivate: function () {
+		$(this).removeClass( 'active' );
+
+		if ( $(this).contents().size() > 0 )
+		{
+			$(this).contents().styledButtonDeactivate();
+		}
+	},
+	styledButtonDropDownActivate: function () {
+		if ( !$(this).is( '.dropdown' ) )
+		{
+			$(this).children().styledButtonDropDownActivate();
+		}else
+		{
+			for ( var i = 0; i < $(this).size(); i += 1 )
 			{
-				if ( $.browser.msie )
+				if ( $(this).eq( i ).is( ".dropdown" ) )
 				{
-					$(this).eq( i ).css( "display", "block" );
-				}else
+					if ( $.browser.msie )
+					{
+						$(this).eq( i ).css( "display", "block" );
+					}else
+					{
+						$(this).eq( i ).slideDown( 60 );
+					}
+				}
+			}
+		}
+	},
+	styledButtonDropDownDeactivate: function () {
+		if ( !$(this).is( '.dropdown' ) )
+		{
+			$(this).contents().styledButtonDropDownDeactivate();
+		}else
+		{
+			for ( var i = 0; i < $(this).size(); i += 1 )
+			{
+				if ( $(this).eq( i ).is( ".dropdown" ) )
 				{
-					$(this).eq( i ).slideDown( 60 );
+					if ( $.browser.msie )
+					{
+						$(this).eq( i ).css( "display", "none" );
+					}else
+					{
+						$(this).eq( i ).slideUp( 20 );
+					}
 				}
 			}
 		}
 	}
-}
-
-$.fn.styledButtonDropDownDeactivate = function ()
-{
-	if ( !$(this).is( '.dropdown' ) )
-	{
-		$(this).contents().styledButtonDropDownDeactivate();
-	}else
-	{
-		for ( var i = 0; i < $(this).size(); i += 1 )
-		{
-			if ( $(this).eq( i ).is( ".dropdown" ) )
-			{
-				if ( $.browser.msie )
-				{
-					$(this).eq( i ).css( "display", "none" );
-				}else
-				{
-					$(this).eq( i ).slideUp( 20 );
-				}
-			}
-		}
-	}
-}
+});
 })(jQuery);
